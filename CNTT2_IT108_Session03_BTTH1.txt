@@ -1,0 +1,35 @@
+Bài 1: Quản lý lưu trữ và đường dẫn tệp trong Windows 
+Nguyễn Vũ Quốc Anh - MSSV: N26DTCN004  
+
+PHẦN 1: PHÂN TÍCH CÁC SAI LẦM VÀ HIỂU LẦM
+1. Các sai lầm trong cách lưu trữ và đặt tên:
+Vị trí lưu trữ sai: Lưu bài tập tại C:\Windows\System32. Thư mục System32 chứa các tệp cốt lõi của hệ điều hành. Lưu file cá nhân vào đây dễ gây mất dữ liệu khi cài lại Windows, dính lỗi từ chối quyền truy cập (Permission Denied) và nguy cơ xóa nhầm file hệ thống.
+Đặt tên file/thư mục sai chuẩn: Tên thư mục và file có khoảng trắng cùng chữ hoa/thường lộn xộn (Bai Tap Cua Nam, Session 01, bai tap 1.py). Khi chạy lệnh bằng CLI/Terminal, dấu khoảng trắng bị hiểu nhầm thành dấu phân cách tham số, dẫn đến lỗi không tìm thấy đường dẫn (No such file or directory).
+
+2. Hiểu lầm về tốc độ mạng:
+Nam nhầm lẫn giữa đơn vị Megabit (Mb) và Megabyte (MB).
+Nhà mạng cung cấp băng thông là 100Mbps (Megabit/giây). Vì 1 Byte = 8 bits, tốc độ tải thực tế tính bằng:
+Tốc độ tải (MB/s) = 100Mbps / 8 = 12.5MB/s
+Tốc độ hiển thị 12.5MB/s là đúng 100% băng thông gói cước, nhà mạng không lừa đảo.
+
+3. Nguyên nhân ổ SSD 256 GB thực tế hiển thị thấp hơn:
+Quy đổi hệ số: Nhà sản xuất tính dung lượng theo hệ thập phân (1 GB = 10^9 Bytes = 1.000.000.000 Bytes), nên 256 GB = 256.000.000.000 Bytes.
+Cách Windows đọc: Hệ điều hành dùng hệ nhị phân (1 GiB = 1024^3 Bytes = 1.073.741.824 Bytes).
+Dung lượng hiển thị:
+256.000.000.000 / 1024^3 ≈ 238.4 GiB
+Windows ghi nhầm nhãn GiB thành GB. Ngoài ra, một phần nhỏ dung lượng còn bị chiếm bởi phân vùng ẩn khôi phục (Recovery Partition) và định dạng bảng tệp (File System Overhead).
+
+PHẦN 2: THIẾT KẾ CÂY THƯ MỤC CHUẨN TRÊN Ổ D:
+Chuyển toàn bộ dữ liệu sang ổ D:, áp dụng chuẩn tên kebab-case (chữ viết thường, dùng dấu gạch ngang - thay khoảng trắng), cấu trúc 3 cấp kết hợp 4 trụ cột quản lý học tập (lectures, assignments, projects, resources):
+
+D:\
+└── ptit-academic/                     [Cấp 1: Thư mục gốc]
+    ├── 01-lectures/                   [Trụ cột 1: Bài giảng]
+    ├── 02-assignments/                [Trụ cột 2: Bài tập]
+    │   └── nhap-mon-cntt/             [Cấp 2: Môn học]
+    │       └── session-03/            [Cấp 3: Buổi học]
+    │           └── btth-1.py          (File bài tập Python)
+    ├── 03-projects/                   [Trụ cột 3: Đồ án]
+    └── 04-resources/                  [Trụ cột 4: Tài nguyên/Công cụ]
+
+Đường dẫn file chuẩn: D:\ptit-academic\02-assignments\nhap-mon-cntt\session-03\btth-1.py
